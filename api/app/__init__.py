@@ -4,7 +4,7 @@ from os import path
 # from flask_login import LoginManager
 
 db = SQLAlchemy()
-DB_NAME = "movies"
+DB_NAME = "moviestest"
 DB_USERNAME = "root"
 DB_PASSWORD = ""
 DB_HOST = "localhost"
@@ -15,7 +15,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = "helloworld"
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{DB_USERNAME}:{DB_PASSWORD}@host:{DB_PORT}/{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
     db.init_app(app)
 
@@ -25,9 +25,10 @@ def create_app():
     # app.register_blueprint(views, url_prefix="/")
     # app.register_blueprint(auth, url_prefix="/")
 
-    # from .models import User, Post, Comment, Like
+    from .models import User
 
-    # create_database(app)
+    # with app.app_context():
+    #     create_database(app)
 
     # login_manager = LoginManager()
     # login_manager.login_view = "auth.login"
@@ -38,3 +39,8 @@ def create_app():
     #     return User.query.get(int(id))
 
     return app
+
+
+def create_database(app):
+    db.create_all()
+    print("Created database!")
