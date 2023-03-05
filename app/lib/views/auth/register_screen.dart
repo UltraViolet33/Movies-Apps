@@ -17,12 +17,12 @@ class RegisterScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            "Tiktok Clone",
+          const Text(
+            "My Movies",
             style: TextStyle(
                 fontSize: 35, color: Colors.white, fontWeight: FontWeight.w900),
           ),
-          Text(
+          const Text(
             "Register",
             style: TextStyle(
                 fontSize: 25, color: Colors.white, fontWeight: FontWeight.w700),
