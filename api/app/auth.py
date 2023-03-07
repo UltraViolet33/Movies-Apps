@@ -14,7 +14,10 @@ def sign_up():
     email = request.form.get("email")
     username = request.form.get("username")
     password = request.form.get("password")
-    passwordConfirmation = request.form.get("passwordConfirmation")
+    password_confirmation = request.form.get("passwordConfirmation")
+
+    if password != password_confirmation:
+        return {"msg": "Passwords don't match"}, 400 
 
 
     try:
