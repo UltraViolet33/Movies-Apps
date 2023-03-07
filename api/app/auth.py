@@ -13,22 +13,22 @@ def sign_up():
    
     email = request.form.get("email")
     username = request.form.get("username")
-    password1 = request.form.get("password1")
-    password2 = request.form.get("password2")
+    password = request.form.get("password")
+    passwordConfirmation = request.form.get("passwordConfirmation")
 
     email_exists = User.query.filter_by(email=email).first()
     username_exists = User.query.filter_by(username=username).first()
 
     if email_exists:
-        return {"msg": "Email is already in use"}
+        return {"msg": "Email is already in use"}, 400
     elif username_exists:
-        return {"msg": "Username is already in use"}
-    elif password1 != password2:
-        return {"msg": "Password don't match"}
+        return {"msg": "Username is already in use"}, 400
+    elif password != passwordConfirmation:
+        return {"msg": "Password don't match"}, 400
 
     else:
         new_user = User(email=email, username=username, password=generate_password_hash(
-            password1, method="sha256"))
+            password, method="sha256"))
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user, remember=True)
