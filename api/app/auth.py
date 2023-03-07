@@ -16,21 +16,12 @@ def sign_up():
     password = request.form.get("password")
     passwordConfirmation = request.form.get("passwordConfirmation")
 
-    email_exists = User.query.filter_by(email=email).first()
-    username_exists = User.query.filter_by(username=username).first()
 
-    if email_exists:
-        return {"msg": "Email is already in use"}, 400
-    elif username_exists:
-        return {"msg": "Username is already in use"}, 400
-    elif password != passwordConfirmation:
-        return {"msg": "Password don't match"}, 400
-
-    else:
-        new_user = User(email=email, username=username, password=generate_password_hash(
-            password, method="sha256"))
+    try:
+        new_user = User(email=email, username=username, password_plaintext=password)
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user, remember=True)
         return {"msg": "User created"}, 200
-
+    except AssertionError as message:
+        return {"msg": "Error: {}".format(message)}, 400
