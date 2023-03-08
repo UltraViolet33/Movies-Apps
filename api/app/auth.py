@@ -10,18 +10,18 @@ auth = Blueprint("auth", __name__)
 
 @auth.route("/sign-up", methods=["POST"])
 def sign_up():
-   
+
     email = request.form.get("email")
     username = request.form.get("username")
     password = request.form.get("password")
-    password_confirmation = request.form.get("passwordConfirmation")
+    password_confirmation = request.form.get("password_confirmation")
 
     if password != password_confirmation:
-        return {"msg": "Passwords don't match"}, 400 
-
+        return {"msg": "Error: Passwords don't match"}, 400
 
     try:
-        new_user = User(email=email, username=username, password_plaintext=password)
+        new_user = User(email=email, username=username,
+                        password_plaintext=password)
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user, remember=True)
