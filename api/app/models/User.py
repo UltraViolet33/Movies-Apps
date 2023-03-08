@@ -33,8 +33,10 @@ class User(db.Model, UserMixin):
         if len(password_plaintext) < 8 or len(password_plaintext) > 70:
             raise AssertionError("Password length must be between 8 and 50 characters")
         
-        if not re.match('d.*[A-Z]|[A-Z].*d', password_plaintext):
-            raise AssertionError('Password must contain 1 capital letter and 1 number')
+        password_pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+
+        if not re.match(password_pattern, password_plaintext):
+            raise AssertionError('Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character')
 
         self.password_hashed = generate_password_hash(password_plaintext) 
 
