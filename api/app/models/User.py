@@ -4,7 +4,7 @@ from flask_login import UserMixin
 from sqlalchemy.sql import func
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy.orm import validates 
-from . import db
+from .. import db
 
 
 class User(db.Model, UserMixin):
@@ -19,14 +19,9 @@ class User(db.Model, UserMixin):
     def __init__(self, email, username, password_plaintext):
         self.email = email
         self.username = username
-        # self.password_hashed = self._generate_password_hash(password_plaintext)
         self.set_password(password_plaintext)
         self.registered_on = datetime.now()
 
-
-    # @staticmethod
-    # def _generate_password_hash(password_plaintext):
-    #     return generate_password_hash(password_plaintext)
 
     def is_password_correct(self, password_plaintext):
         return check_password_hash(self.password_hashed, password_plaintext)
