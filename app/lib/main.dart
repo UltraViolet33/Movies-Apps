@@ -1,3 +1,4 @@
+import 'package:app/views/auth/login_screen.dart';
 import 'package:app/views/auth/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,7 +16,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "test",
       theme: ThemeData.dark(),
-      home: RegisterScreen(),
+      home: LoginScreen(),
     );
   }
 }
