@@ -51,5 +51,24 @@ def test_register_user_fail_password_dont_match():
 
         assert response.status_code == 400
         data = json.loads(response.data)
-
         assert data["msg"] == "Error: Passwords don't match"
+
+
+def test_login_success():
+    app = create_app()
+
+    with app.test_client() as test_client:
+        test_client.post("/sign-up", data=dict(username="testtest2",
+                                    email="test2@gmail.com", password="Test123!", password_confirmation="Test123!"))
+
+        response =  test_client.post("sign-in", data=dict(email="test2@gmail.com", password="Test123!"))
+        assert response.status_code == 200
+
+
+def test_login_failed_wrongs_credentials():
+    app = create_app()
+
+    with app.test_client() as test_client:
+    
+        response =  test_client.post("sign-in", data=dict(email="bob@gmail.com", password="Test123!"))
+        assert response.status_code == 401
