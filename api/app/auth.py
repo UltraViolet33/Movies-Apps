@@ -28,3 +28,28 @@ def sign_up():
         return {"msg": "User created"}, 200
     except AssertionError as message:
         return {"msg": "Error: {}".format(message)}, 400
+
+
+@auth.route("/sign-in", methods=["POST"])
+def sign_in():
+
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    if not email or not password:
+        return {"msg": "missing fields"}, 400
+
+    user = User.query.filter_by(email=email).first()
+
+    print(user)
+
+
+    if user:
+        if user.is_password_correct(password):
+            login_user(user)
+            return {"msg": "Logged in"}, 200
+
+        else:
+            return {"msg": "wrong credentials"}, 401
+    else:
+        return {"msg": "wrong credentials"}, 401
