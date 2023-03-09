@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:app/Session.dart';
 import 'package:app/views/auth/login_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController {
   static final _client = http.Client();
@@ -10,6 +13,8 @@ class AuthController {
   static var _registerUrl = Uri.parse("http://192.168.1.10:5000/sign-up");
 
   static var _logingUrl = Uri.parse("http://192.168.1.10:5000/sign-in");
+
+  static var _logoutUrl = Uri.parse("http://192.168.1.10:5000/logout");
 
   static registerUser(String email, String username, String password,
       String passwordConfirmation) async {
@@ -45,6 +50,8 @@ class AuthController {
   }
 
   static loginUser(String email, String password) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
     try {
       if (email.isNotEmpty && password.isNotEmpty) {
         http.Response response = await _client.post(_logingUrl, body: {
@@ -53,19 +60,44 @@ class AuthController {
         });
 
         if (response.statusCode == 200) {
-          print(response.headers);
           Get.snackbar("Loggin", "You Are log in");
+          pref.setString("email", email);
+
+          var rawCookie = response.headers['set-cookie'];
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          if (rawCookie != null) {
+            int index = rawCookie.indexOf(';');
+            String cookie =
+                (index == -1) ? rawCookie : rawCookie.substring(0, index);
+            prefs.setString("cookie", cookie);
+
+          }
         } else {
           Get.snackbar("Error loggin ", "Wrong credentials");
         }
-
-        
-
       } else {
         Get.snackbar("Error loggin ", "Please enter all the fields");
       }
     } catch (e) {
       Get.snackbar("Error Login", e.toString());
     }
+  }
+
+  static logoutUser() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    var cookie = pref.getString("cookie");
+
+    Map<String, String> headers = {};
+
+    Get.to(LoginScreen());
+    headers["cookie"] = cookie!;
+
+    http.Response response = await _client.get(_logoutUrl, headers: headers);
+
+    print(response.body);
+
+    final logout = await pref.remove("cookie");
+
   }
 }
