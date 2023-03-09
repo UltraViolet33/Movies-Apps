@@ -53,10 +53,14 @@ class AuthController {
         });
 
         if (response.statusCode == 200) {
+          print(response.headers);
           Get.snackbar("Loggin", "You Are log in");
         } else {
           Get.snackbar("Error loggin ", "Wrong credentials");
         }
+
+        
+
       } else {
         Get.snackbar("Error loggin ", "Please enter all the fields");
       }
