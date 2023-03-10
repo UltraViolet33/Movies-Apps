@@ -67,7 +67,7 @@ def logout():
 
 
 @auth.route("/test", methods=["GET"])
-@login_required
+# @login_required
 def test():
-    print(current_user)
-    return {"msg": current_user.username}
+    # print(current_user)
+    return {"msg": "current_user.username"}
