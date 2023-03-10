@@ -47,6 +47,11 @@ def initialize_extensions(app):
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.filter(User.id == int(user_id)).first()
+    
+    
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        return {"msg": "Not authorized"}, 401
 
 
 def register_blueprints(app):

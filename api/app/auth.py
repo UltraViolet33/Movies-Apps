@@ -37,37 +37,31 @@ def sign_in():
     password = request.form.get("password")
 
     if not email or not password:
-        return {"msg": "missing fields"}, 400
+        return {"msg": "Error: Missing fields"}, 400
 
     user = User.query.filter_by(email=email).first()
-
-    print(user)
-
 
     if user:
         if user.is_password_correct(password):
             print(user.username)
             login_user(user)
             print(current_user.username)
-            return {"msg": "Logged in"}, 200
+            return {"msg": "You are logged in"}, 200
 
         else:
-            return {"msg": "wrong credentials"}, 401
+            return {"msg": "Error: Wrong credentials"}, 401
     else:
-        return {"msg": "wrong credentials"}, 401
-
+        return {"msg": "Error: Wrong credentials"}, 401
 
 
 @auth.route("/logout")
 @login_required
 def logout():
     logout_user()
-    return {"msg": "you are logged out"}, 200
+    return {"msg": "You are logged out"}, 200
 
 
-
-@auth.route("/test", methods=["GET"])
-# @login_required
+@auth.route("/test-login-required", methods=["GET"])
+@login_required
 def test():
-    # print(current_user)
-    return {"msg": "current_user.username"}
+    return {"msg": current_user.username}, 200

@@ -23,6 +23,7 @@ class User(db.Model, UserMixin):
         self.registered_on = datetime.now()
 
 
+
     def is_password_correct(self, password_plaintext):
         return check_password_hash(self.password_hashed, password_plaintext)
 
