@@ -46,7 +46,7 @@ def sign_in():
             print(user.username)
             login_user(user)
             print(current_user.username)
-            return {"msg": "You are logged in"}, 200
+            return {"msg": "You are logged in", "user": {"username": current_user.username, "email": current_user.email,  "id": current_user.get_id()}}, 200
 
         else:
             return {"msg": "Error: Wrong credentials"}, 401
