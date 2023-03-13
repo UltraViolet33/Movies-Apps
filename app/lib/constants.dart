@@ -1,8 +1,5 @@
-
 import 'package:flutter/material.dart';
 // import 'package:tiktok_clone/controllers/auth_controller.dart';
-
-
 
 // COLORS
 const backgroundColor = Colors.black;
@@ -11,3 +8,8 @@ const borderColor = Colors.grey;
 
 // CONTROLLER
 // var authController = AuthController.instance;
+
+
+// API ENDPOINTS
+
+const apiEndpoint = "http://192.168.1.10:5000";

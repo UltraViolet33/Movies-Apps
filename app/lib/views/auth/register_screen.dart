@@ -28,18 +28,18 @@ class RegisterScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+               Text(
                 "My Movies",
                 style: TextStyle(
                     fontSize: 35,
-                    color: Colors.white,
+                    color: buttonColor,
                     fontWeight: FontWeight.w900),
               ),
-              const Text(
+               Text(
                 "Register",
                 style: TextStyle(
                     fontSize: 25,
-                    color: Colors.white,
+                    color: buttonColor,
                     fontWeight: FontWeight.w700),
               ),
               const SizedBox(
