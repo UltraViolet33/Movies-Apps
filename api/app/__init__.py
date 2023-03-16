@@ -60,4 +60,6 @@ def initialize_extensions(app):
 def register_blueprints(app):
 
     from .auth import auth
+    from .movies import movies
     app.register_blueprint(auth, url_prefix="/")
+    app.register_blueprint(movies, url_prefix="/")
