@@ -3,6 +3,11 @@ import os
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
+DB_NAME = "moviestest"
+DB_USERNAME = "root"
+DB_PASSWORD = ""
+DB_HOST = "localhost"
+DB_PORT = 3306
 
 class Config(object):
     FLASK_ENV = 'development'
@@ -13,7 +18,9 @@ class Config(object):
     if os.getenv('DATABASE_URL'):
         SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL')
     else:
-        SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASEDIR, 'instance', 'app.db')}"
+        # SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASEDIR, 'instance', 'app.db')}"
+        SQLALCHEMY_DATABASE_URI = f'mysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
    
 
