@@ -33,7 +33,10 @@ class DevelopmentConfig(Config):
     DEBUG = True
 
 
-class TestingConfig(Config):
+class TestingConfig(object):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DATABASE_URI',
-                                        default=f"sqlite:///{os.path.join(BASEDIR, 'instance', 'test.db')}")
+    SECRET_KEY = os.getenv('SECRET_KEY', default='BAD_SECRET_KEY')
+    # SQLALCHEMY_DATABASE_URI = os.getenv('TEST_DATABASE_URI',
+                                        # default=f"sqlite:///{os.path.join(BASEDIR, 'instance', 'test.db')}")
+
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASEDIR, 'instance', 'test.db')}"

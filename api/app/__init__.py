@@ -16,10 +16,16 @@ login_manager = LoginManager()
 # DB_PORT = 3306
 
 
-def create_app(config_filename=None):
+def create_app(config_type=None):
     app = Flask(__name__)
 
-    config_type = os.getenv('CONFIG_TYPE', default='config.DevelopmentConfig')
+    if config_type == None:
+
+        config_type = os.getenv('CONFIG_TYPE', default='config.DevelopmentConfig')
+        print("ok")
+
+    
+    
     print(config_type)
     app.config.from_object(config_type)
 
