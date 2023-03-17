@@ -21,3 +21,21 @@ def get_random_movies():
         random_movies.append(movie.to_dict())
 
     return random_movies
+
+
+
+
+@movies.route("/movies/search/<movie>", methods=["GET"])
+@login_required
+def search_movie(movie):
+
+    search = "%{}%".format(movie)
+
+    movies = Movie.query.filter(Movie.title.like(search)).all()
+
+    results = []
+
+    for movie in movies:
+        results.append(movie.to_dict())
+
+    return results
