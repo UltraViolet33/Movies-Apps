@@ -28,7 +28,7 @@ class MovieItem extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  decoration: BoxDecoration(color: Colors.green),
+                  decoration: BoxDecoration(),
                   child: Text(movie.title),
                   alignment: Alignment.center,
                 ),
