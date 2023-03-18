@@ -19,6 +19,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Movie>> movies;
 
+  final TextEditingController _searchMovieController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -29,22 +31,59 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: FutureBuilder<List<Movie>>(
-      future: movies,
-      builder: (context, snapshot) {
-        if (snapshot.hasError) print(snapshot.error);
+        appBar: AppBar(title: const Text("search a movie")),
+        body: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(20.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextInputField(
+                        controller: _searchMovieController,
+                        labelText: "search a movie",
+                        icon: Icons.search),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      // Get.to(RegisterScreen());
+                      setState(() {
+                        movies = MoviesApi()
+                            .searchMovies(_searchMovieController.text);
+                      });
+                    },
+                    child: Text(
+                      "OK",
+                      style: TextStyle(fontSize: 20, color: buttonColor),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            // TextInputField(
+            //     controller: _searchMovieController,
+            //     labelText: "search a movie",
+            //     icon: Icons.search),
+            Expanded(
+              child: Center(
+                  child: FutureBuilder<List<Movie>>(
+                future: movies,
+                builder: (context, snapshot) {
+                  if (snapshot.hasError) print(snapshot.error);
 
-        return snapshot.hasData
-            ? MoviesList(movies: snapshot.data)
-            : Center(child: CircularProgressIndicator());
-      },
-    )));
+                  return snapshot.hasData
+                      ? MoviesList(movies: snapshot.data)
+                      : Center(child: CircularProgressIndicator());
+                },
+              )),
+            ),
+          ],
+        ));
   }
 
   // @override
   // Widget build(BuildContext context) {
-  //   return Scaffold(
+  //   return Scaffold(r
   //     body: Container(
   //       alignment: Alignment.center,
   //       child: Column(
