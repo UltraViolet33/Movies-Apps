@@ -92,3 +92,16 @@ def add_movie_to_seen_list():
         seen_list.append(movie.to_dict())
 
     return seen_list
+
+
+
+@movies.route("/movies/seen-list", methods=["GET"])
+@login_required
+def get_seen_list_user():
+
+    seen_list_user = []
+
+    for movie in current_user.seen_list:
+        seen_list_user.append(movie.to_dict())
+
+    return seen_list_user
