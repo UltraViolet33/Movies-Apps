@@ -58,3 +58,15 @@ def add_movie_to_watch_list():
         watch_list.append(movie.to_dict())
 
     return watch_list
+
+
+@movies.route("/movies/watch-list", methods=["GET"])
+@login_required
+def get_watch_list_user():
+
+    watch_list_user = []
+
+    for movie in current_user.watch_list:
+        watch_list_user.append(movie.to_dict())
+
+    return watch_list_user
