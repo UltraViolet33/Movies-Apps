@@ -15,6 +15,14 @@ watch_list_table = db.Table("watch_list",
                             )
 
 
+seen_list_table = db.Table("seen_list",
+                            db.Column("user_id", db.Integer,
+                                      db.ForeignKey("users.id")),
+                            db.Column("movie_id", db.Integer,
+                                      db.ForeignKey("movies.id"))
+                            )
+
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -26,7 +34,10 @@ class User(db.Model, UserMixin):
         timezone=True), default=func.now(), nullable=False)
 
     watch_list = db.relationship(
-        "Movie", secondary=watch_list_table, backref="movies")
+        "Movie", secondary=watch_list_table)
+    
+    seen_list = db.relationship(
+        "Movie", secondary=seen_list_table)
 
     def __init__(self, email, username, password_plaintext):
         self.email = email

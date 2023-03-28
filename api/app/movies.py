@@ -70,3 +70,25 @@ def get_watch_list_user():
         watch_list_user.append(movie.to_dict())
 
     return watch_list_user
+
+
+@movies.route("/movies/seen-list/add", methods=["POST"])
+@login_required
+def add_movie_to_seen_list():
+
+    movie_id = request.form.get("movie_id")
+    movie = Movie.query.filter_by(id=movie_id).first()
+
+    if not movie:
+        return {"msg": "Error: movie not found"}, 400
+
+    user = current_user
+    user.seen_list.append(movie)
+    db.session.commit()
+
+    seen_list = []
+
+    for movie in user.seen_list:
+        seen_list.append(movie.to_dict())
+
+    return seen_list
