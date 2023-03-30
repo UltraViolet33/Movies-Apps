@@ -14,5 +14,14 @@ class Movie(db.Model):
         self.title = title
         self.posterURL = posterURL
 
-    def to_dict(self):
-        return {"id": self.id, "title": self.title, "posterURL": self.posterURL, "category": self.category}
+    def to_dict(self, current_user):
+        movie_dict = {"id": self.id, "title": self.title, "posterURL": self.posterURL, "category": self.category}
+        movie_dict["is_in_watch_list"] = False
+
+        for user in self.users_watch_list:
+            if current_user.id == user.id:
+                movie_dict["is_in_watch_list"] = True
+            
+
+
+        return movie_dict

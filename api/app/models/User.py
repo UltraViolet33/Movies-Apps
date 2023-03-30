@@ -34,7 +34,7 @@ class User(db.Model, UserMixin):
         timezone=True), default=func.now(), nullable=False)
 
     watch_list = db.relationship(
-        "Movie", secondary=watch_list_table)
+        "Movie", secondary=watch_list_table, backref="users_watch_list")
     
     seen_list = db.relationship(
         "Movie", secondary=seen_list_table)

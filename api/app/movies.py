@@ -17,7 +17,8 @@ def get_random_movies():
     random_movies = []
 
     for movie in movies:
-        random_movies.append(movie.to_dict())
+        random_movies.append(movie.to_dict(current_user))
+        
 
     return random_movies
 
@@ -33,7 +34,7 @@ def search_movie(movie):
     results = []
 
     for movie in movies:
-        results.append(movie.to_dict())
+        results.append(movie.to_dict(current_user))
 
     return results
 
