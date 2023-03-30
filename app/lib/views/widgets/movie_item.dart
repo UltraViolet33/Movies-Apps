@@ -13,6 +13,7 @@ class MovieItem extends StatelessWidget {
     return InkWell(
       onTap: (() {
         print("ok");
+        print(movie.is_in_watch_list);
         Get.to(MovieScreen(
           movie: this.movie,
         ));
@@ -38,11 +39,18 @@ class MovieItem extends StatelessWidget {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(),
-                    child: Text(movie.title),
+                    child: Row(
+                      children: [
+                        Text(movie.title),
+                        movie.is_in_watch_list ? Text("To See") : Text("")
+                      ],
+                    ),
                     alignment: Alignment.center,
                   ),
                   flex: 2,
-                )
+                ),
+                // movie.is_in_watch_list ? Text("ok") : Text("okd")
+                // Text("ok")
               ],
             ),
           )),

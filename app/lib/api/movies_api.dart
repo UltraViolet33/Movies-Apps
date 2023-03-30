@@ -18,6 +18,7 @@ class MoviesApi {
 
     if (response.statusCode == 200) {
       List<Movie> movies = movieFromJson(response.body);
+      print(response.body);
       return movies;
     } else {
       throw Exception("Failed to load resources");
