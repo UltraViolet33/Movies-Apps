@@ -53,12 +53,9 @@ def add_movie_to_watch_list():
     user.watch_list.append(movie)
     db.session.commit()
 
-    watch_list = []
+    movie = movie.to_dict(current_user)
 
-    for movie in user.watch_list:
-        watch_list.append(movie.to_dict(current_user))
-
-    return watch_list
+    return movie
 
 
 @movies.route("/movies/watch-list", methods=["GET"])
@@ -68,7 +65,7 @@ def get_watch_list_user():
     watch_list_user = []
 
     for movie in current_user.watch_list:
-        watch_list_user.append(movie.to_dict())
+        watch_list_user.append(movie.to_dict(current_user))
 
     return watch_list_user
 
