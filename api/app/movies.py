@@ -56,7 +56,7 @@ def add_movie_to_watch_list():
     watch_list = []
 
     for movie in user.watch_list:
-        watch_list.append(movie.to_dict())
+        watch_list.append(movie.to_dict(current_user))
 
     return watch_list
 
