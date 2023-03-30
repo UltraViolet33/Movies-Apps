@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:app/constants.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:app/models/movie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,6 +44,29 @@ class MoviesApi {
       return movies;
     } else {
       throw Exception("Failed to load resources");
+    }
+  }
+
+  void  addMovieToWatchList(int movieId) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    var cookie = pref.getString("cookie");
+
+    Map<String, String> headers = {};
+    headers["cookie"] = cookie!;
+
+    var url = Uri.parse('$apiEndpoint/movies/watch-list/add');
+
+    Map<String, String> data = {
+      "movie_id": movieId.toString(),
+    };
+
+    http.Response response = await http.post(url, headers: headers, body: data);
+
+    if (response.statusCode == 200) {
+      Get.snackbar("Watch list", "Movie added to your watch list !");
+    } else {
+      Get.snackbar("Error !", jsonDecode(response.body)["msg"]);
     }
   }
 }

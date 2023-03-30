@@ -1,3 +1,4 @@
+import 'package:app/api/movies_api.dart';
 import 'package:app/constants.dart';
 import 'package:app/models/movie.dart';
 import 'package:flutter/material.dart';
@@ -34,38 +35,38 @@ class MovieScreen extends StatelessWidget {
             ),
             movie.is_in_watch_list
                 ? Container(
-                  width: MediaQuery.of(context).size.width - 200,
-                height: 50,
-                  decoration: BoxDecoration(
-                    color: buttonColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(5))),
-                  child: InkWell(
-                    
-                      onTap: () {},
-                      child: const Center(
-                          child: Text(
-                        "Remove from watch list",
-                        style:
-                            TextStyle(fontSize: 15),
-                      ))),
-                )
+                    width: MediaQuery.of(context).size.width - 200,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: buttonColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5))),
+                    child: InkWell(
+                        onTap: () {},
+                        child: const Center(
+                            child: Text(
+                          "Remove from watch list",
+                          style: TextStyle(fontSize: 15),
+                        ))),
+                  )
                 : Container(
-                  width: MediaQuery.of(context).size.width - 200,
-                height: 50,
-                  decoration: BoxDecoration(
-                    color: buttonColor,
-                    borderRadius: const BorderRadius.all(Radius.circular(5))),
-                  child: InkWell(
-                    
-                      onTap: () {},
-                      child: const Center(
-                          child: Text(
-                        "Add to watch list",
-                        style:
-                            TextStyle(fontSize: 15),
-                      ))),
-                ),
-                   const SizedBox(
+                    width: MediaQuery.of(context).size.width - 200,
+                    height: 50,
+                    decoration: BoxDecoration(
+                        color: buttonColor,
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5))),
+                    child: InkWell(
+                        onTap: () {
+                          MoviesApi().addMovieToWatchList(movie.id);
+                        },
+                        child: const Center(
+                            child: Text(
+                          "Add to watch list",
+                          style: TextStyle(fontSize: 15),
+                        ))),
+                  ),
+            const SizedBox(
               height: 25,
             ),
             Image.network(
