@@ -58,6 +58,25 @@ def add_movie_to_watch_list():
     return movie
 
 
+@movies.route("/movies/watch-list/remove", methods=["POST"])
+@login_required
+def remove_movie_from_watch_list():
+
+    movie_id = request.form.get("movie_id")
+    movie = Movie.query.filter_by(id=movie_id).first()
+
+    if not movie:
+        return {"msg": "Error: movie not found"}, 400
+
+    user = current_user
+    user.watch_list.remove(movie)
+    db.session.commit()
+
+    movie = movie.to_dict(current_user)
+
+    return movie
+
+
 @movies.route("/movies/watch-list", methods=["GET"])
 @login_required
 def get_watch_list_user():
