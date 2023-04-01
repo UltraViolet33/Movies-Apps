@@ -96,4 +96,31 @@ class MoviesApi {
       throw Exception("Failed to load resources");
     }
   }
+
+   Future<Movie>  removeMovieFromWatchList(int movieId) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+
+    var cookie = pref.getString("cookie");
+
+    Map<String, String> headers = {};
+    headers["cookie"] = cookie!;
+
+    var url = Uri.parse('$apiEndpoint/movies/watch-list/remove');
+
+    Map<String, String> data = {
+      "movie_id": movieId.toString(),
+    };
+
+    http.Response response = await http.post(url, headers: headers, body: data);
+
+    if (response.statusCode == 200) {
+      Get.snackbar("Watch list", "Movie removed from your watch list !");
+      Movie movie = Movie.fromJson(jsonDecode(response.body));
+      return movie;
+    } else {
+      Get.snackbar("Error !", jsonDecode(response.body)["msg"]);
+      // return null;
+      throw Exception("Failed to load resources");
+    }
+  }
 }

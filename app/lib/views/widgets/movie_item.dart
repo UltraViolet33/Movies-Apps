@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MovieItem extends StatelessWidget {
-  const MovieItem({Key? key, required this.movie});
+  const MovieItem({Key? key, required this.movie, required  Function(Movie newMovie) this.handleWatchList});
 
   final Movie movie;
+  final Function( Movie newMovie) handleWatchList;
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,7 @@ class MovieItem extends StatelessWidget {
       onTap: (() {
         Get.to(MovieScreen(
           movie: this.movie,
+          handleWatchList: this.handleWatchList,
         ));
       }),
       child: Container(

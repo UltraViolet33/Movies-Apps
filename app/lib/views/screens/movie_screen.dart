@@ -5,8 +5,11 @@ import 'package:flutter/material.dart';
 
 class MovieScreen extends StatefulWidget {
   Movie movie;
-
-  MovieScreen({Key? key, required this.movie});
+  final Function(Movie newMovie) handleWatchList;
+  MovieScreen(
+      {Key? key,
+      required this.movie,
+      required Function(Movie newMovie) this.handleWatchList});
 
   @override
   State<MovieScreen> createState() => _MovieScreenState();
@@ -47,7 +50,16 @@ class _MovieScreenState extends State<MovieScreen> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(5))),
                     child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          MoviesApi()
+                              .removeMovieFromWatchList(widget.movie.id)
+                              .then((value) {
+                            setState(() {
+                              widget.movie = value;
+                            });
+                            widget.handleWatchList(widget.movie);
+                          });
+                        },
                         child: const Center(
                             child: Text(
                           "Remove from watch list",
@@ -69,14 +81,10 @@ class _MovieScreenState extends State<MovieScreen> {
                             setState(() {
                               widget.movie = value;
                             });
+                            widget.handleWatchList(widget.movie);
                           });
                         },
-                        child: const Center(
-                            child: Text(
-                          "Add to watch list",
-                          style: TextStyle(fontSize: 15),
-                        ))),
-                  ),
+                        child: const Center(child: Text("Add to watch list")))),
             const SizedBox(
               height: 25,
             ),
