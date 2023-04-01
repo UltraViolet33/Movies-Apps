@@ -3,16 +3,21 @@ import 'package:app/constants.dart';
 import 'package:app/models/movie.dart';
 import 'package:flutter/material.dart';
 
-class MovieScreen extends StatelessWidget {
-  final Movie movie;
+class MovieScreen extends StatefulWidget {
+  Movie movie;
 
   MovieScreen({Key? key, required this.movie});
 
   @override
+  State<MovieScreen> createState() => _MovieScreenState();
+}
+
+class _MovieScreenState extends State<MovieScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(movie.title),
+        title: Text(widget.movie.title),
       ),
       body: Container(
         alignment: Alignment.center,
@@ -20,7 +25,7 @@ class MovieScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              movie.title,
+              widget.movie.title,
               style: TextStyle(
                   fontSize: 35,
                   color: Colors.black87,
@@ -29,11 +34,11 @@ class MovieScreen extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            Text("Category : " + movie.category.toString()),
+            Text("Category : " + widget.movie.category.toString()),
             const SizedBox(
               height: 25,
             ),
-            movie.is_in_watch_list
+            widget.movie.isInWatchList
                 ? Container(
                     width: MediaQuery.of(context).size.width - 200,
                     height: 50,
@@ -58,7 +63,13 @@ class MovieScreen extends StatelessWidget {
                             const BorderRadius.all(Radius.circular(5))),
                     child: InkWell(
                         onTap: () {
-                          MoviesApi().addMovieToWatchList(movie.id);
+                          MoviesApi()
+                              .addMovieToWatchList(widget.movie.id)
+                              .then((value) {
+                            setState(() {
+                              widget.movie = value;
+                            });
+                          });
                         },
                         child: const Center(
                             child: Text(
@@ -70,7 +81,7 @@ class MovieScreen extends StatelessWidget {
               height: 25,
             ),
             Image.network(
-              movie.posterUrl,
+              widget.movie.posterUrl,
               errorBuilder: (context, error, stackTrace) =>
                   Text("Network error"),
             ),

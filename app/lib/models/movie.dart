@@ -12,21 +12,21 @@ class Movie {
     required this.id,
     required this.posterUrl,
     required this.title,
-    required this.is_in_watch_list,
+    required this.isInWatchList,
   });
 
   int category;
   int id;
   String posterUrl;
   String title;
-  bool is_in_watch_list;
+  bool isInWatchList;
 
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
         category: json["category"],
         id: json["id"],
         posterUrl: json["posterURL"],
         title: json["title"],
-        is_in_watch_list: json["is_in_watch_list"]
+        isInWatchList: json["is_in_watch_list"]
       );
 
   Map<String, dynamic> toJson() => {
