@@ -15,8 +15,8 @@ const apiEndpoint = "http://192.168.1.10:5000";
 
 const pages = [
   Text("Home screen"),
-  RandomMovies(),
   Text("Search screen"),
+  RandomMovies(),
   Text("Watch List screen"),
   Text("Random movies screen"),
 ];

@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Icons.message,
                   size: 30,
                 ),
-                label: "Message",
+                label: "Random",
               ),
               BottomNavigationBarItem(
                 icon: Icon(
