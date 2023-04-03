@@ -17,7 +17,8 @@ def get_random_movies():
     random_movies = []
 
     for movie in movies:
-        random_movies.append(movie.to_dict())
+        random_movies.append(movie.to_dict(current_user))
+        
 
     return random_movies
 
@@ -33,7 +34,7 @@ def search_movie(movie):
     results = []
 
     for movie in movies:
-        results.append(movie.to_dict())
+        results.append(movie.to_dict(current_user))
 
     return results
 
@@ -52,12 +53,28 @@ def add_movie_to_watch_list():
     user.watch_list.append(movie)
     db.session.commit()
 
-    watch_list = []
+    movie = movie.to_dict(current_user)
 
-    for movie in user.watch_list:
-        watch_list.append(movie.to_dict())
+    return movie
 
-    return watch_list
+
+@movies.route("/movies/watch-list/remove", methods=["POST"])
+@login_required
+def remove_movie_from_watch_list():
+
+    movie_id = request.form.get("movie_id")
+    movie = Movie.query.filter_by(id=movie_id).first()
+
+    if not movie:
+        return {"msg": "Error: movie not found"}, 400
+
+    user = current_user
+    user.watch_list.remove(movie)
+    db.session.commit()
+
+    movie = movie.to_dict(current_user)
+
+    return movie
 
 
 @movies.route("/movies/watch-list", methods=["GET"])
@@ -67,7 +84,7 @@ def get_watch_list_user():
     watch_list_user = []
 
     for movie in current_user.watch_list:
-        watch_list_user.append(movie.to_dict())
+        watch_list_user.append(movie.to_dict(current_user))
 
     return watch_list_user
 

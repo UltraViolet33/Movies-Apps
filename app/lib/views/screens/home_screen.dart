@@ -1,130 +1,58 @@
-import 'package:app/api/movies_api.dart';
 import 'package:app/constants.dart';
-import 'package:app/models/movie.dart';
-import 'package:app/views/auth/register_screen.dart';
-import 'package:app/views/widgets/movies_list.dart';
-import 'package:app/views/widgets/password_input.dart';
-import 'package:app/views/widgets/text_input_field.dart';
 import 'package:flutter/material.dart';
-import 'package:app/controllers/auth_controller.dart';
-import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<List<Movie>> movies;
-
-  final TextEditingController _searchMovieController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    movies = MoviesApi().fetchMovies();
-    print(movies);
-  }
+  int pageIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("search a movie")),
-        body: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(20.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: TextInputField(
-                        controller: _searchMovieController,
-                        labelText: "search a movie",
-                        icon: Icons.search),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      // Get.to(RegisterScreen());
-                      setState(() {
-                        movies = MoviesApi()
-                            .searchMovies(_searchMovieController.text);
-                      });
-                    },
-                    child: Text(
-                      "OK",
-                      style: TextStyle(fontSize: 20, color: buttonColor),
-                    ),
-                  ),
-                ],
+        bottomNavigationBar: BottomNavigationBar(
+            onTap: (index) => setState(() {
+                  pageIndex = index;
+                }),
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: backgroundColor,
+            selectedItemColor: Colors.red,
+            unselectedItemColor: Colors.white,
+            currentIndex: pageIndex,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  size: 30,
+                ),
+                label: "Home",
               ),
-            ),
-            // TextInputField(
-            //     controller: _searchMovieController,
-            //     labelText: "search a movie",
-            //     icon: Icons.search),
-            Expanded(
-              child: Center(
-                  child: FutureBuilder<List<Movie>>(
-                future: movies,
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) print(snapshot.error);
-
-                  return snapshot.hasData
-                      ? MoviesList(movies: snapshot.data)
-                      : Center(child: CircularProgressIndicator());
-                },
-              )),
-            ),
-          ],
-        ));
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.search,
+                  size: 30,
+                ),
+                label: "Search",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.message,
+                  size: 30,
+                ),
+                label: "Random",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person,
+                  size: 30,
+                ),
+                label: "Profile",
+              ),
+            ]),
+        body: pages[pageIndex]);
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(r
-  //     body: Container(
-  //       alignment: Alignment.center,
-  //       child: Column(
-  //         mainAxisAlignment: MainAxisAlignment.center,
-  //         children: [
-  //           Text(
-  //             "My Movies",
-  //             style: TextStyle(
-  //                 fontSize: 35,
-  //                 color: buttonColor,
-  //                 fontWeight: FontWeight.w900),
-  //           ),
-  //           Text(
-  //             "Home",
-  //             style: TextStyle(
-  //                 fontSize: 25,
-  //                 color: buttonColor,
-  //                 fontWeight: FontWeight.w700),
-  //           ),
-  //           const SizedBox(
-  //             height: 25,
-  //           ),
-  //           Container(
-  //             width: MediaQuery.of(context).size.width - 40,
-  //             height: 50,
-  //             decoration: BoxDecoration(
-  //                 color: buttonColor,
-  //                 borderRadius: const BorderRadius.all(Radius.circular(5))),
-  //             child: InkWell(
-  //                 onTap: () {
-  //                   AuthController.logoutUser();
-  //                 },
-  //                 child: const Center(
-  //                     child: Text(
-  //                   "Logout",
-  //                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-  //                 ))),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 }
