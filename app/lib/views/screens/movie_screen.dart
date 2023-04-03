@@ -37,7 +37,6 @@ class _MovieScreenState extends State<MovieScreen> {
             const SizedBox(
               height: 25,
             ),
-            Text("Category : " + widget.movie.category.toString()),
             const SizedBox(
               height: 25,
             ),

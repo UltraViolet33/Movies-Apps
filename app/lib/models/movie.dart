@@ -8,21 +8,18 @@ String movieToJson(List<Movie> data) =>
 
 class Movie {
   Movie({
-    required this.category,
     required this.id,
     required this.posterUrl,
     required this.title,
     required this.isInWatchList,
   });
 
-  int category;
   int id;
   String posterUrl;
   String title;
   bool isInWatchList;
 
   factory Movie.fromJson(Map<String, dynamic> json) => Movie(
-        category: json["category"],
         id: json["id"],
         posterUrl: json["posterURL"],
         title: json["title"],
@@ -30,7 +27,6 @@ class Movie {
       );
 
   Map<String, dynamic> toJson() => {
-        "category": category,
         "id": id,
         "posterURL": posterUrl,
         "title": title,
