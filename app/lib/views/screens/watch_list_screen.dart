@@ -3,20 +3,20 @@ import 'package:app/models/movie.dart';
 import 'package:app/views/widgets/movies_list.dart';
 import 'package:flutter/material.dart';
 
-class RandomMovies extends StatefulWidget {
-  const RandomMovies({Key? key}) : super(key: key);
+class WatchListScreen extends StatefulWidget {
+  const WatchListScreen({Key? key}) : super(key: key);
 
   @override
-  State<RandomMovies> createState() => _RandomMoviesState();
+  State<WatchListScreen> createState() => _WatchListScreenState();
 }
 
-class _RandomMoviesState extends State<RandomMovies> {
-  late Future<List<Movie>> movies;
+class _WatchListScreenState extends State<WatchListScreen> {
+  late Future<List<Movie>> watchListMovies;
 
   @override
   void initState() {
     super.initState();
-    movies = MoviesApi().fetchMovies();
+    watchListMovies = MoviesApi().fetchWatchList();
   }
 
   @override
@@ -27,7 +27,7 @@ class _RandomMoviesState extends State<RandomMovies> {
         child: Expanded(
           child: Center(
             child: FutureBuilder<List<Movie>>(
-              future: movies,
+              future: watchListMovies,
               builder: (context, snapshot) {
                 if (snapshot.hasError) print(snapshot.error);
 

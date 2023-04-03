@@ -1,4 +1,6 @@
+import 'package:app/views/screens/watch_list_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class UserActivity extends StatelessWidget {
   const UserActivity({Key? key}) : super(key: key);
@@ -17,7 +19,9 @@ class UserActivity extends StatelessWidget {
                   border: Border.all(color: Colors.black),
                   borderRadius: const BorderRadius.all(Radius.circular(5))),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Get.to(const WatchListScreen());
+                },
                 child: const Center(
                   child: Text(
                     "See my watch list",
