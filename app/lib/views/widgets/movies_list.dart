@@ -12,12 +12,7 @@ class MoviesList extends StatefulWidget {
 }
 
 class _MoviesListState extends State<MoviesList> {
-  // void handleWatchList(int index, Movie newMovie) {
-  //   setState(() {
-  //     widget.movies![index] = newMovie;
-  //   });
-  // }
-
+  
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
