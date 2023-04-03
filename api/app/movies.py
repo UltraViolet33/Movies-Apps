@@ -28,9 +28,7 @@ def get_random_movies():
 def search_movie(movie):
 
     search = "%{}%".format(movie)
-
     movies = Movie.query.filter(Movie.title.like(search)).all()
-
     results = []
 
     for movie in movies:

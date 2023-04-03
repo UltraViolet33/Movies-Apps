@@ -18,8 +18,6 @@ class Movie(db.Model):
     categories = db.relationship(
         "Category", secondary=movies_categories_table, backref="movies")
 
-    # category = db.Column(db.Integer, db.ForeignKey(
-    #     "categories.id", ondelete="CASCADE"), nullable=False)
 
     def __init__(self, title, posterURL):
         self.title = title
@@ -33,6 +31,5 @@ class Movie(db.Model):
             if current_user.id == user.id:
                 movie_dict["is_in_watch_list"] = True
             
-
 
         return movie_dict

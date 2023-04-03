@@ -9,12 +9,6 @@ import sqlalchemy as sa
 db = SQLAlchemy()
 login_manager = LoginManager()
 
-# DB_NAME = "moviestest"
-# DB_USERNAME = "root"
-# DB_PASSWORD = ""
-# DB_HOST = "localhost"
-# DB_PORT = 3306
-
 
 def create_app(config_type=None):
     app = Flask(__name__)
@@ -35,9 +29,9 @@ def create_app(config_type=None):
     engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
     inspector = sa.inspect(engine)
     # if not inspector.has_table("users") or not inspector.has_table("movies"):
-    with app.app_context():
-        db.drop_all()
-        db.create_all()
+    # with app.app_context():
+    #     db.drop_all()
+    #     db.create_all()
 
     # app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
