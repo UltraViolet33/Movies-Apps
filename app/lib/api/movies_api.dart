@@ -68,13 +68,26 @@ class MoviesApi {
     }
   }
 
-  Future<Movie>  addMovieToWatchList(int movieId) async {
+  Future<Map<String, String>> getCookie() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
     var cookie = pref.getString("cookie");
 
     Map<String, String> headers = {};
     headers["cookie"] = cookie!;
+
+    return headers;
+  }
+
+  Future<Movie> addMovieToWatchList(int movieId) async {
+    // SharedPreferences pref = await SharedPreferences.getInstance();
+
+    // var cookie = pref.getString("cookie");
+
+    // Map<String, String> headers = {};
+    // headers["cookie"] = cookie!;
+
+    Map<String, String> headers = await MoviesApi().getCookie();
 
     var url = Uri.parse('$apiEndpoint/movies/watch-list/add');
 
@@ -95,7 +108,7 @@ class MoviesApi {
     }
   }
 
-   Future<Movie>  removeMovieFromWatchList(int movieId) async {
+  Future<Movie> removeMovieFromWatchList(int movieId) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
     var cookie = pref.getString("cookie");

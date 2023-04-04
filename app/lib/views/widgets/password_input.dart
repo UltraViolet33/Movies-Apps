@@ -28,7 +28,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+      return TextField(
       controller: widget.controller,
       decoration: InputDecoration(
         labelText: widget.labelText,

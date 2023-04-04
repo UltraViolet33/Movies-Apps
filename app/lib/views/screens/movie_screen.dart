@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class MovieScreen extends StatefulWidget {
   Movie movie;
   final Function(Movie newMovie) handleWatchList;
+
   MovieScreen(
       {Key? key,
       required this.movie,
@@ -16,6 +17,14 @@ class MovieScreen extends StatefulWidget {
 }
 
 class _MovieScreenState extends State<MovieScreen> {
+  late bool isInSeenList;
+
+  @override
+  void initState() {
+    super.initState();
+    isInSeenList = widget.movie.isInSeenList;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,10 +38,11 @@ class _MovieScreenState extends State<MovieScreen> {
           children: [
             Text(
               widget.movie.title,
-              style: TextStyle(
-                  fontSize: 35,
-                  color: Colors.black87,
-                  fontWeight: FontWeight.w900),
+              style: const TextStyle(
+                fontSize: 35,
+                color: Colors.black87,
+                fontWeight: FontWeight.w900,
+              ),
             ),
             const SizedBox(
               height: 25,
@@ -45,52 +55,98 @@ class _MovieScreenState extends State<MovieScreen> {
                     width: MediaQuery.of(context).size.width - 200,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: buttonColor,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5))),
+                      color: buttonColor,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                    ),
                     child: InkWell(
-                        onTap: () {
-                          MoviesApi()
-                              .removeMovieFromWatchList(widget.movie.id)
-                              .then((value) {
-                            setState(() {
-                              widget.movie = value;
-                            });
-                            widget.handleWatchList(widget.movie);
+                      onTap: () {
+                        MoviesApi()
+                            .removeMovieFromWatchList(widget.movie.id)
+                            .then((value) {
+                          setState(() {
+                            widget.movie = value;
                           });
-                        },
-                        child: const Center(
-                            child: Text(
+                          widget.handleWatchList(widget.movie);
+                        });
+                      },
+                      child: const Center(
+                        child: Text(
                           "Remove from watch list",
                           style: TextStyle(fontSize: 15),
-                        ))),
+                        ),
+                      ),
+                    ),
                   )
                 : Container(
                     width: MediaQuery.of(context).size.width - 200,
                     height: 50,
                     decoration: BoxDecoration(
-                        color: buttonColor,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5))),
+                      color: buttonColor,
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(5),
+                      ),
+                    ),
                     child: InkWell(
-                        onTap: () {
-                          MoviesApi()
-                              .addMovieToWatchList(widget.movie.id)
-                              .then((value) {
-                            setState(() {
-                              widget.movie = value;
-                            });
-                            widget.handleWatchList(widget.movie);
+                      onTap: () {
+                        MoviesApi()
+                            .addMovieToWatchList(widget.movie.id)
+                            .then((value) {
+                          setState(() {
+                            widget.movie = value;
                           });
-                        },
-                        child: const Center(child: Text("Add to watch list")))),
+                          widget.handleWatchList(widget.movie);
+                        });
+                      },
+                      child: const Center(
+                        child: Text("Add to watch list"),
+                      ),
+                    ),
+                  ),
             const SizedBox(
               height: 25,
             ),
             Image.network(
               widget.movie.posterUrl,
               errorBuilder: (context, error, stackTrace) =>
-                  Text("Network error"),
+                  const Text("Network error"),
+            ),
+            const SizedBox(
+              height: 25,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width - 200,
+              height: 50,
+              decoration: BoxDecoration(
+                color: buttonColor,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(5),
+                ),
+              ),
+              child: InkWell(
+                onTap: () {
+
+
+
+                  setState(() {
+                    isInSeenList = !isInSeenList;
+                  });
+                  // MoviesApi()
+                  //     .addMovieToWatchList(widget.movie.id)
+                  //     .then((value) {
+                  //   setState(() {
+                  //     widget.movie = value;
+                  //   });
+                  //   widget.handleWatchList(widget.movie);
+                  // });
+                },
+                child: Center(
+                  child: isInSeenList
+                      ? const Text("Remove from seen list")
+                      : const Text("Add to seen list"),
+                ),
+              ),
             ),
           ],
         ),
