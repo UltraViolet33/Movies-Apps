@@ -1,3 +1,4 @@
+import 'package:app/views/screens/profil_screen.dart';
 import 'package:app/views/screens/random_movies.dart';
 import 'package:app/views/screens/search_screen.dart';
 import 'package:app/views/screens/user_activity.dart';
@@ -19,6 +20,5 @@ const pages = [
   UserActivity(),
   SearchScreen(),
   RandomMovies(),
-  Text("Watch List screen"),
-  Text("Random movies screen"),
+  ProfilScreen(),
 ];
