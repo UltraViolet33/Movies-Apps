@@ -126,20 +126,12 @@ class _MovieScreenState extends State<MovieScreen> {
               ),
               child: InkWell(
                 onTap: () {
-
-
-
+                  isInSeenList
+                      ? MoviesApi().removeMovieFromSeenList(widget.movie.id)
+                      : MoviesApi().addMovieToSeenList(widget.movie.id);
                   setState(() {
                     isInSeenList = !isInSeenList;
                   });
-                  // MoviesApi()
-                  //     .addMovieToWatchList(widget.movie.id)
-                  //     .then((value) {
-                  //   setState(() {
-                  //     widget.movie = value;
-                  //   });
-                  //   widget.handleWatchList(widget.movie);
-                  // });
                 },
                 child: Center(
                   child: isInSeenList
