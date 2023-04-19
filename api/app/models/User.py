@@ -35,9 +35,9 @@ class User(db.Model, UserMixin):
 
     watch_list = db.relationship(
         "Movie", secondary=watch_list_table, backref="users_watch_list")
-    
+
     seen_list = db.relationship(
-        "Movie", secondary=seen_list_table)
+        "Movie", secondary=seen_list_table, backref="users_seen_list")
 
     def __init__(self, email, username, password_plaintext):
         self.email = email

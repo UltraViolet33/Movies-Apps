@@ -27,9 +27,16 @@ class Movie(db.Model):
         movie_dict = {"id": self.id, "title": self.title, "posterURL": self.posterURL}
         movie_dict["is_in_watch_list"] = False
 
+        movie_dict["is_in_seen_list"] = False  
+
         for user in self.users_watch_list:
             if current_user.id == user.id:
                 movie_dict["is_in_watch_list"] = True
+        
+        
+        for user in self.users_seen_list:
+            if current_user.id == user.id:
+                movie_dict["is_in_seen_list"] = True
             
 
         return movie_dict

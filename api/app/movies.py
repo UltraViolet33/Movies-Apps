@@ -117,6 +117,26 @@ def get_seen_list_user():
     seen_list_user = []
 
     for movie in current_user.seen_list:
-        seen_list_user.append(movie.to_dict())
+        seen_list_user.append(movie.to_dict(current_user))
 
     return seen_list_user
+
+
+
+@movies.route("/movies/seen-list/remove", methods=["POST"])
+@login_required
+def remove_movie_from_seen_list():
+
+    movie_id = request.form.get("movie_id")
+    movie = Movie.query.filter_by(id=movie_id).first()
+
+    if not movie:
+        return {"msg": "Error: movie not found"}, 400
+
+    user = current_user
+    user.seen_list.remove(movie)
+    db.session.commit()
+
+    movie = movie.to_dict(current_user)
+
+    return movie
