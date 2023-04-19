@@ -9,7 +9,6 @@ auth = Blueprint("auth", __name__)
 
 @auth.route("/sign-up", methods=["POST"])
 def sign_up():
-
     email = request.form.get("email")
     username = request.form.get("username")
     password = request.form.get("password")
@@ -31,7 +30,6 @@ def sign_up():
 
 @auth.route("/sign-in", methods=["POST"])
 def sign_in():
-
     email = request.form.get("email")
     password = request.form.get("password")
 

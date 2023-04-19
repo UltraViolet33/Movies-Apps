@@ -11,22 +11,18 @@ movies = Blueprint("movies", __name__)
 @movies.route("/get-random-movies", methods=["GET"])
 @login_required
 def get_random_movies():
-
     movies = Movie.query.order_by(func.rand()).limit(10).all()
-
     random_movies = []
 
     for movie in movies:
         random_movies.append(movie.to_dict(current_user))
         
-
     return random_movies
 
 
 @movies.route("/movies/search/<movie>", methods=["GET"])
 @login_required
 def search_movie(movie):
-
     search = "%{}%".format(movie)
     movies = Movie.query.filter(Movie.title.like(search)).all()
     results = []
@@ -40,7 +36,6 @@ def search_movie(movie):
 @movies.route("/movies/watch-list/add", methods=["POST"])
 @login_required
 def add_movie_to_watch_list():
-
     movie_id = request.form.get("movie_id")
     movie = Movie.query.filter_by(id=movie_id).first()
 
@@ -52,14 +47,12 @@ def add_movie_to_watch_list():
     db.session.commit()
 
     movie = movie.to_dict(current_user)
-
     return movie
 
 
 @movies.route("/movies/watch-list/remove", methods=["POST"])
 @login_required
 def remove_movie_from_watch_list():
-
     movie_id = request.form.get("movie_id")
     movie = Movie.query.filter_by(id=movie_id).first()
 
@@ -71,14 +64,12 @@ def remove_movie_from_watch_list():
     db.session.commit()
 
     movie = movie.to_dict(current_user)
-
     return movie
 
 
 @movies.route("/movies/watch-list", methods=["GET"])
 @login_required
 def get_watch_list_user():
-
     watch_list_user = []
 
     for movie in current_user.watch_list:
@@ -90,7 +81,6 @@ def get_watch_list_user():
 @movies.route("/movies/seen-list/add", methods=["POST"])
 @login_required
 def add_movie_to_seen_list():
-
     movie_id = request.form.get("movie_id")
     movie = Movie.query.filter_by(id=movie_id).first()
 
@@ -113,7 +103,6 @@ def add_movie_to_seen_list():
 @movies.route("/movies/seen-list", methods=["GET"])
 @login_required
 def get_seen_list_user():
-
     seen_list_user = []
 
     for movie in current_user.seen_list:
@@ -126,7 +115,6 @@ def get_seen_list_user():
 @movies.route("/movies/seen-list/remove", methods=["POST"])
 @login_required
 def remove_movie_from_seen_list():
-
     movie_id = request.form.get("movie_id")
     movie = Movie.query.filter_by(id=movie_id).first()
 
@@ -138,5 +126,4 @@ def remove_movie_from_seen_list():
     db.session.commit()
 
     movie = movie.to_dict(current_user)
-
     return movie

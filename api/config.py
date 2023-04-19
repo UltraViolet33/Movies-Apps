@@ -1,7 +1,6 @@
 import os
 from dotenv import load_dotenv
 
-
 project_folder = os.path.expanduser('')
 load_dotenv(os.path.join(project_folder, '.env'))
 
@@ -13,14 +12,6 @@ DB_PASSWORD = os.getenv('DB_PASSWORD')
 DB_HOST = os.getenv('DB_HOST')
 DB_PORT = os.getenv('DB_PORT')
 
-
-
-# DB_NAME = "moviestest"
-# DB_USERNAME = "root"
-# DB_PASSWORD = ""
-# DB_HOST = "localhost"
-# DB_PORT = 3306
-
 class Config(object):
     FLASK_ENV = 'development'
     DEBUG = False
@@ -30,7 +21,6 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = f'mysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
    
-
 
 class ProductionConfig(Config):
     FLASK_ENV = 'production'

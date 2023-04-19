@@ -6,12 +6,9 @@ from app.models.User import User
 
 @pytest.fixture(scope="module")
 def test_client():
-
     flask_app = create_app("config.TestingConfig")
-    # flask_app.config.from_object("config.TestingConfig")
 
     with flask_app.test_client() as testing_client:
-
         with flask_app.app_context():
             yield testing_client
 
@@ -25,10 +22,7 @@ def init_database(test_client):
 
     db.session.add(user1)
     db.session.add(user2)
-
-
     db.session.commit()
-
 
     yield 
 

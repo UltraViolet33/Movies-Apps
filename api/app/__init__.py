@@ -23,7 +23,6 @@ def create_app(config_type=None):
     register_blueprints(app)
 
     engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
-    inspector = sa.inspect(engine)
 
     return app
 
@@ -48,7 +47,6 @@ def initialize_extensions(app):
 
 
 def register_blueprints(app):
-
     from .auth import auth
     from .movies import movies
     app.register_blueprint(auth, url_prefix="/")

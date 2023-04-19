@@ -16,11 +16,11 @@ watch_list_table = db.Table("watch_list",
 
 
 seen_list_table = db.Table("seen_list",
-                            db.Column("user_id", db.Integer,
-                                      db.ForeignKey("users.id")),
-                            db.Column("movie_id", db.Integer,
-                                      db.ForeignKey("movies.id"))
-                            )
+                           db.Column("user_id", db.Integer,
+                                     db.ForeignKey("users.id")),
+                           db.Column("movie_id", db.Integer,
+                                     db.ForeignKey("movies.id"))
+                           )
 
 
 class User(db.Model, UserMixin):
