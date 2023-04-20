@@ -22,7 +22,9 @@ class _RandomMoviesState extends State<RandomMovies> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("random movies")),
+      appBar: AppBar(
+        title: const Text("random movies"),
+      ),
       body: Center(
         child: Expanded(
           child: Center(

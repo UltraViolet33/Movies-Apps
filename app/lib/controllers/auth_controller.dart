@@ -11,9 +11,7 @@ class AuthController {
   static final _client = http.Client();
 
   static final _registerUrl = Uri.parse('$apiEndpoint/sign-up');
-
   static final _logingUrl = Uri.parse('$apiEndpoint/sign-in');
-
   static final _logoutUrl = Uri.parse('$apiEndpoint/logout');
 
   static registerUser(String email, String username, String password,
@@ -61,7 +59,7 @@ class AuthController {
 
         if (response.statusCode == 200) {
           Get.snackbar("Loggin", "You Are log in");
-          Get.to(HomeScreen());
+          Get.to(const HomeScreen());
 
           var data = jsonDecode(response.body);
 
@@ -96,7 +94,6 @@ class AuthController {
     SharedPreferences pref = await SharedPreferences.getInstance();
 
     var cookie = pref.getString("cookie");
-
     Map<String, String> headers = {};
     headers["cookie"] = cookie!;
 

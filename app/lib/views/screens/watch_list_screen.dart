@@ -11,7 +11,6 @@ class WatchListScreen extends StatefulWidget {
 }
 
 class _WatchListScreenState extends State<WatchListScreen> {
-
   late Future<List<Movie>> watchListMovies;
 
   @override
@@ -22,10 +21,10 @@ class _WatchListScreenState extends State<WatchListScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-
-      appBar: AppBar(title: const Text("random movies")),
+      appBar: AppBar(
+        title: const Text("random movies"),
+      ),
       body: Center(
         child: Expanded(
           child: Center(

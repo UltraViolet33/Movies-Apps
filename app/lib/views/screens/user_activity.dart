@@ -9,7 +9,9 @@ class UserActivity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Your activty")),
+      appBar: AppBar(
+        title: const Text("Your activty"),
+      ),
       body: Center(
         child: Column(
           children: [

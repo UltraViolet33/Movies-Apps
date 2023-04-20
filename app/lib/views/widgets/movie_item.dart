@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class MovieItem extends StatelessWidget {
-  const MovieItem({Key? key, required this.movie, required  Function(Movie newMovie) this.handleWatchList});
+  const MovieItem(
+      {Key? key,
+      required this.movie,
+      required Function(Movie newMovie) this.handleWatchList});
 
   final Movie movie;
-  final Function( Movie newMovie) handleWatchList;
+  final Function(Movie newMovie) handleWatchList;
 
   @override
   Widget build(BuildContext context) {
@@ -19,41 +22,38 @@ class MovieItem extends StatelessWidget {
         ));
       }),
       child: Container(
-          padding: const EdgeInsets.all(2),
-          height: 140,
-          child: Card(
-            elevation: 5,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              // crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Expanded(
-                  child: Image.network(
-                    movie.posterUrl,
-                    errorBuilder: (context, error, stackTrace) =>
-                        Text("Network error"),
-                  ),
-                  flex: 1,
+        padding: const EdgeInsets.all(2),
+        height: 140,
+        child: Card(
+          elevation: 5,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Image.network(
+                  movie.posterUrl,
+                  errorBuilder: (context, error, stackTrace) =>
+                      Text("Network error"),
                 ),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(),
-                    child: Row(
-                      children: [
-                        Text(movie.title),
-                
-                      ],
-                    ),
-                    alignment: Alignment.center,
+                flex: 1,
+              ),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(),
+                  child: Row(
+                    children: [
+                      Text(movie.title),
+                    ],
                   ),
-                  flex: 2,
+                  alignment: Alignment.center,
                 ),
-
-                // Text("ok")
-              ],
-            ),
-          )),
+                flex: 2,
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
