@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:app/constants.dart';
 import 'package:app/models/user.dart';
-import 'package:app/views/auth/login_screen.dart';
+import 'package:app/views/screens/auth/login_screen.dart';
 import 'package:app/views/screens/home_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
