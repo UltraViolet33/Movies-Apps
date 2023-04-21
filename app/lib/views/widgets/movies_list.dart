@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class MoviesList extends StatefulWidget {
   final List<Movie>? movies;
 
-  const MoviesList({Key? key, required this.movies});
+  const MoviesList({super.key, required this.movies});
 
   @override
   State<MoviesList> createState() => _MoviesListState();

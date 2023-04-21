@@ -5,9 +5,7 @@ import 'package:get/get.dart';
 
 class MovieItem extends StatelessWidget {
   const MovieItem(
-      {Key? key,
-      required this.movie,
-      required Function(Movie newMovie) this.handleWatchList});
+      {super.key, required this.movie, required this.handleWatchList});
 
   final Movie movie;
   final Function(Movie newMovie) handleWatchList;
@@ -17,8 +15,8 @@ class MovieItem extends StatelessWidget {
     return InkWell(
       onTap: (() {
         Get.to(MovieScreen(
-          movie: this.movie,
-          handleWatchList: this.handleWatchList,
+          movie: movie,
+          handleWatchList: handleWatchList,
         ));
       }),
       child: Container(
@@ -31,24 +29,24 @@ class MovieItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Expanded(
+                flex: 1,
                 child: Image.network(
                   movie.posterUrl,
                   errorBuilder: (context, error, stackTrace) =>
-                      Text("Network error"),
+                      const Text("Network error"),
                 ),
-                flex: 1,
               ),
               Expanded(
+                flex: 2,
                 child: Container(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
+                  alignment: Alignment.center,
                   child: Row(
                     children: [
                       Text(movie.title),
                     ],
                   ),
-                  alignment: Alignment.center,
                 ),
-                flex: 2,
               ),
             ],
           ),

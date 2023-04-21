@@ -23,7 +23,7 @@ class _RandomMoviesState extends State<RandomMovies> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("random movies"),
+        title: const Text("Random movies"),
       ),
       body: Center(
         child: Expanded(

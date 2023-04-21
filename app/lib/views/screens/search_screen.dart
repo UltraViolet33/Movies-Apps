@@ -14,7 +14,6 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   final TextEditingController _searchMovieController = TextEditingController();
-
   late Future<List<Movie>> movies;
 
   @override
@@ -66,7 +65,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
                   return snapshot.hasData
                       ? MoviesList(movies: snapshot.data)
-                      : Center(child: CircularProgressIndicator());
+                      : const Center(child: CircularProgressIndicator());
                 },
               ),
             ),

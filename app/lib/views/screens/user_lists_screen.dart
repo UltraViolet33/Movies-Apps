@@ -1,16 +1,16 @@
-import 'package:app/views/screens/seen_list_screen.dart';
-import 'package:app/views/screens/watch_list_screen.dart';
+import 'package:app/views/screens/lists/seen_list_screen.dart';
+import 'package:app/views/screens/lists/watch_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class UserActivity extends StatelessWidget {
-  const UserActivity({Key? key}) : super(key: key);
+class UserListsScreen extends StatelessWidget {
+  const UserListsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Your activty"),
+        title: const Text("Your lists"),
       ),
       body: Center(
         child: Column(

@@ -1,7 +1,7 @@
 import 'package:app/views/screens/profil_screen.dart';
 import 'package:app/views/screens/random_movies.dart';
 import 'package:app/views/screens/search_screen.dart';
-import 'package:app/views/screens/user_activity.dart';
+import 'package:app/views/screens/user_lists_screen.dart';
 import 'package:flutter/material.dart';
 
 // COLORS
@@ -13,7 +13,7 @@ const borderColor = Colors.grey;
 const apiEndpoint = "http://192.168.1.10:5000";
 
 const pages = [
-  UserActivity(),
+  UserListsScreen(),
   SearchScreen(),
   RandomMovies(),
   ProfilScreen(),

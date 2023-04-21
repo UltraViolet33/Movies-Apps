@@ -24,7 +24,6 @@ class ProfilScreen extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
-                  // Get.to(const WatchListScreen());
                   AuthApi.logoutUser();
                 },
                 child: const Center(

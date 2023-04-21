@@ -3,33 +3,33 @@ import 'package:app/models/movie.dart';
 import 'package:app/views/widgets/movies_list.dart';
 import 'package:flutter/material.dart';
 
-class WatchListScreen extends StatefulWidget {
-  const WatchListScreen({Key? key}) : super(key: key);
+class SeenListScreen extends StatefulWidget {
+  const SeenListScreen({Key? key}) : super(key: key);
 
   @override
-  State<WatchListScreen> createState() => _WatchListScreenState();
+  State<SeenListScreen> createState() => _SeenListScreenState();
 }
 
-class _WatchListScreenState extends State<WatchListScreen> {
-  late Future<List<Movie>> watchListMovies;
+class _SeenListScreenState extends State<SeenListScreen> {
+  late Future<List<Movie>> seenListMovies;
 
   @override
   void initState() {
     super.initState();
-    watchListMovies = MoviesApi().fetchWatchList();
+    seenListMovies = MoviesApi().fetchSeenList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("random movies"),
+        title: const Text("Your seen list"),
       ),
       body: Center(
         child: Expanded(
           child: Center(
             child: FutureBuilder<List<Movie>>(
-              future: watchListMovies,
+              future: seenListMovies,
               builder: (context, snapshot) {
                 if (snapshot.hasError) print(snapshot.error);
 
