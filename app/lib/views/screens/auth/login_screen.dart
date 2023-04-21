@@ -4,7 +4,6 @@ import 'package:app/views/screens/auth/register_screen.dart';
 import 'package:app/views/widgets/password_input.dart';
 import 'package:app/views/widgets/text_input_field.dart';
 import 'package:flutter/material.dart';
-import 'package:app/controllers/auth_controller.dart';
 import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {

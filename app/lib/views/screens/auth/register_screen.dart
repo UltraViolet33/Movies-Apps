@@ -1,6 +1,5 @@
 import 'package:app/api/auth_api.dart';
 import 'package:app/constants.dart';
-import 'package:app/controllers/auth_controller.dart';
 import 'package:app/views/screens/auth/login_screen.dart';
 import 'package:app/views/widgets/password_input.dart';
 import 'package:app/views/widgets/text_input_field.dart';

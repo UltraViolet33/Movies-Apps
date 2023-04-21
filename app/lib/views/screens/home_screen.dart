@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.message,
+                  Icons.wb_twilight,
                   size: 30,
                 ),
                 label: "Random",
