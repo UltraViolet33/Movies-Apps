@@ -1,3 +1,4 @@
+import 'package:app/api/auth_api.dart';
 import 'package:app/constants.dart';
 import 'package:app/controllers/auth_controller.dart';
 import 'package:app/views/screens/auth/login_screen.dart';
@@ -107,7 +108,7 @@ class RegisterScreen extends StatelessWidget {
                   ),
                   child: InkWell(
                     onTap: () {
-                      AuthController.registerUser(
+                      AuthApi.registerUser(
                           _emailController.text,
                           _usernameController.text,
                           _passwordController.text,

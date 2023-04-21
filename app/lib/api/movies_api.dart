@@ -6,6 +6,7 @@ import 'package:app/models/movie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MoviesApi {
+
   Future<List<Movie>> fetchMovies() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
 

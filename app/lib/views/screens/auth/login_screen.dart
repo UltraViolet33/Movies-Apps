@@ -1,3 +1,4 @@
+import 'package:app/api/auth_api.dart';
 import 'package:app/constants.dart';
 import 'package:app/views/screens/auth/register_screen.dart';
 import 'package:app/views/widgets/password_input.dart';
@@ -69,7 +70,7 @@ class LoginScreen extends StatelessWidget {
                   borderRadius: const BorderRadius.all(Radius.circular(5))),
               child: InkWell(
                 onTap: () {
-                  AuthController.loginUser(
+                  AuthApi.loginUser(
                       _emailController.text, _passwordController.text);
                 },
                 child: const Center(
