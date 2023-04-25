@@ -2,45 +2,52 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 from flask_login import LoginManager
+import os
+import sqlalchemy as sa
+
 
 db = SQLAlchemy()
-DB_NAME = "moviestest"
-DB_USERNAME = "root"
-DB_PASSWORD = ""
-DB_HOST = "localhost"
-DB_PORT = 3306
+login_manager = LoginManager()
 
 
-def create_app():
+def create_app(config_type=None):
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = "helloworld"
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
 
-    db.init_app(app)
+    if config_type == None:
+        config_type = os.getenv('CONFIG_TYPE', default='config.DevelopmentConfig')
 
-    # from .views import views
-    from .auth import auth
+    
+    app.config.from_object(config_type)
 
-    # app.register_blueprint(views, url_prefix="/")
-    app.register_blueprint(auth, url_prefix="/")
+    initialize_extensions(app)
+    register_blueprints(app)
 
-    from .models import User
-
-    # with app.app_context():
-    #     create_database(app)
-
-    login_manager = LoginManager()
-    # login_manager.login_view = "auth.login"
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(id):
-        return User.query.get(int(id))
+    engine = sa.create_engine(app.config['SQLALCHEMY_DATABASE_URI'])
 
     return app
 
 
-def create_database(app):
-    db.create_all()
-    print("Created database!")
+def initialize_extensions(app):
+    db.init_app(app)
+    login_manager.init_app(app)
+
+    from app.models.User import User
+    from app.models.Movie import Movie
+    from app.models.Category import Category
+
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.filter(User.id == int(user_id)).first()
+    
+    
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        return {"msg": "Not authorized"}, 401
+
+
+def register_blueprints(app):
+    from .auth import auth
+    from .movies import movies
+    app.register_blueprint(auth, url_prefix="/")
+    app.register_blueprint(movies, url_prefix="/")
