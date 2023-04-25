@@ -6,14 +6,8 @@ import 'package:app/models/movie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MoviesApi {
-
   Future<List<Movie>> fetchMovies() async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-
-    var cookie = pref.getString("cookie");
-
-    Map<String, String> headers = {};
-    headers["cookie"] = cookie!;
+    Map<String, String> headers = await MoviesApi().getCookie();
 
     var url = Uri.parse('$apiEndpoint/get-random-movies');
 
@@ -21,7 +15,6 @@ class MoviesApi {
 
     if (response.statusCode == 200) {
       List<Movie> movies = movieFromJson(response.body);
-      print(response.body);
       return movies;
     } else {
       throw Exception("Failed to load resources");
@@ -59,14 +52,8 @@ class MoviesApi {
   }
 
   Future<List<Movie>> searchMovies(String movie) async {
-    SharedPreferences pref = await SharedPreferences.getInstance();
-
-    var cookie = pref.getString("cookie");
-
-    Map<String, String> headers = {};
-    headers["cookie"] = cookie!;
-
     var url = Uri.parse('$apiEndpoint/movies/search/$movie');
+    Map<String, String> headers = await MoviesApi().getCookie();
 
     final response = await http.get(url, headers: headers);
 
@@ -148,7 +135,6 @@ class MoviesApi {
       return movie;
     } else {
       Get.snackbar("Error !", jsonDecode(response.body)["msg"]);
-      // return null;
       throw Exception("Failed to load resources");
     }
   }
