@@ -1,7 +1,3 @@
 # Movies Apps   
 
-
-## API Flask
-
-
-## Mobile app Flutter
+A Flutter mobile app about movies with a Flask API
